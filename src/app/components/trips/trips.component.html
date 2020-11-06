@@ -1,0 +1,38 @@
+<div class=container>
+    <h2 class="total-reservations" [style.background-color]="totalReservations > 10 ? 'green' : 'red'">Ilość rezerwacji {{totalReservations}}</h2>
+    <div class="trip-list" *ngFor="let trip of tripList">
+        <mat-card class="mat-elevation-z4">
+            <div class="flex-row">
+                <div class="flex-image">
+                    <img src={{trip.imageUrl}}>
+                </div>
+                <div class="flex-trip-content">
+                    <mat-card-header class="card-content-header">
+                        <mat-card-title>{{trip.name | uppercase}}</mat-card-title>
+                        <mat-card-subtitle>{{trip.destination | uppercase}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="trip-description">
+                            {{trip.description}}
+                        </div>
+                        <div class="trip-details">
+                            <p><b>Cena:</b> {{trip.price | currency}}</p>
+                            <p><b>Termin wyjazdu:</b> {{trip.startDate | date:"MM.dd.yyyy"}} - {{trip.endDate | date:"MM.dd.yyyy"}}</p>
+                            <p *ngIf="!isSoldOut(trip); else showSoldOutMessage" [style.color]="isAlmostSoldOut(trip) ? 'orange' : 'green'">Ilość dostępnych miejsc: {{trip.availablePlaces}}</p>
+                            <ng-template #showSoldOutMessage>
+                                <p class="trip-soldout-message">Brak wolnych miejsc!</p>
+                            </ng-template>
+                        </div>
+                    </mat-card-content>
+    
+                    <mat-card-actions>
+                        <button mat-raised-button class="action-button" color="primary" [disabled]="trip.availablePlaces == 0" (click)="addReservation(trip)">+</button>
+                        <button mat-raised-button class="action-button" color="primary" [disabled]="trip.availablePlaces == trip.totalPlaces" (click)="removeReservation(trip)">-</button>
+                    </mat-card-actions>
+                </div>
+            </div>
+        </mat-card>
+    
+    
+    </div>
+</div>
