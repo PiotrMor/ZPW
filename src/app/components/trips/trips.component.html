@@ -1,7 +1,7 @@
 <div class=container>
     <h2 class="total-reservations" [style.background-color]="totalReservations > 10 ? 'green' : 'red'">Ilość rezerwacji {{totalReservations}}</h2>
     <div class="trip-list" *ngFor="let trip of tripList">
-        <mat-card class="mat-elevation-z4">
+        <mat-card class="mat-elevation-z4" [ngClass]="{'border-red': isMostExpensive(trip), 'border-green': isCheapest(trip)}">
             <div class="flex-row">
                 <div class="flex-image">
                     <img src={{trip.imageUrl}}>
