@@ -1,0 +1,8 @@
+<div class=container>
+    <h2 class="total-reservations" [style.background-color]="totalReservations > 10 ? 'green' : 'red'">Ilość rezerwacji {{totalReservations}}</h2>
+    <div class="trip-list" *ngFor="let trip of tripList">
+        <app-trip [trip]="trip" [isCheapest]="isCheapest(trip)" [isMostExpensive]="isMostExpensive(trip)" 
+        (removeTripEvent)="removeTrip($event)" (reservationEvent)=handleReservationEvent($event)></app-trip>
+    
+    </div>
+</div>

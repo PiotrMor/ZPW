@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Trip } from 'src/app/model/Trip';
 
 @Component({
-  selector: 'app-trips',
-  templateUrl: './trips.component.html',
-  styleUrls: ['./trips.component.scss']
+  selector: 'app-trip-list',
+  templateUrl: './trip-list.component.html',
+  styleUrls: ['./trip-list.component.scss']
 })
-export class TripsComponent implements OnInit {
+export class TripListComponent implements OnInit {
   tripList: Trip[] = [];
   totalReservations: number = 0;
 
@@ -15,26 +15,6 @@ export class TripsComponent implements OnInit {
   
   ngOnInit(): void {
     this.addRandomTrips();
-  }
-
-  addReservation(trip: Trip) {
-    trip.availablePlaces -= 1;
-    this.totalReservations += 1;
-  }
-
-  removeReservation(trip: Trip) {
-    if (trip.availablePlaces < trip.totalPlaces) {
-      trip.availablePlaces += 1;
-      this.totalReservations -= 1;
-    }
-  }
-
-  isAlmostSoldOut(trip: Trip): boolean {
-    return trip.availablePlaces / trip.totalPlaces <= 0.35;
-  }
-
-  isSoldOut(trip: Trip): boolean {
-    return trip.availablePlaces == 0;
   }
 
   isCheapest(trip: Trip): boolean {
@@ -53,6 +33,18 @@ export class TripsComponent implements OnInit {
       }
     }
     return true;
+  }
+
+  removeTrip(trip: Trip) {
+    let index = this.tripList.indexOf(trip);
+    if (index !== -1) {
+      this.tripList.splice(index, 1);
+      this.totalReservations = trip.totalPlaces - trip.availablePlaces;
+    }
+  }
+
+  handleReservationEvent(value: number) {
+    this.totalReservations += value;
   }
 
   addRandomTrips() {
