@@ -39,6 +39,7 @@ export class TripComponent implements OnInit {
   addReservation() {
     this.trip.availablePlaces -= 1;
     this.reservationEvent.emit(1);
+    console.log(this.trip.rate);
   }
 
   removeReservation() {

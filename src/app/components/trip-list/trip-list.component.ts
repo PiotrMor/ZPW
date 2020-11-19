@@ -63,6 +63,7 @@ export class TripListComponent implements OnInit {
     trip2.price = 704;
     trip2.imageUrl = "https://cdn.pixabay.com/photo/2016/01/19/19/26/amsterdam-1150319_960_720.jpg";
     trip2.totalPlaces = 20;
+    trip2.rate = 4;
 
     let trip3: Trip = new Trip("Wycieczka do Moskwy", "Rosja");
     trip3.startDate = new Date("2020-12-28");

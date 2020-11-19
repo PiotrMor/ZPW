@@ -11,6 +11,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { TripComponent } from './components/trip/trip.component';
 import { TripListComponent } from './components/trip-list/trip-list.component';
 import {MatIconModule} from '@angular/material/icon';
+import { RatingModule } from 'ng-starrating';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { FormsModule } from '@angular/forms'
 
 
 @NgModule({
@@ -18,6 +21,7 @@ import {MatIconModule} from '@angular/material/icon';
     AppComponent,
     TripListComponent,
     TripComponent,
+    StarRatingComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     FlexLayoutModule,
     MatGridListModule,
-    MatIconModule
+    MatIconModule,
+    RatingModule,
+    FormsModule
   ],
   providers: [
 

@@ -26,6 +26,7 @@
             </mat-card-content>
 
             <mat-card-actions>
+                <app-star-rating [(value)]="trip.rate"></app-star-rating>
                 <button mat-raised-button class="action-button" color="primary" [disabled]="trip.availablePlaces == 0" (click)="addReservation()">+</button>
                 <button mat-raised-button class="action-button" color="primary" [disabled]="trip.availablePlaces == trip.totalPlaces" (click)="removeReservation()">-</button>
             </mat-card-actions>

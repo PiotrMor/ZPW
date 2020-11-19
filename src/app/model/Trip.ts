@@ -8,6 +8,7 @@ export class Trip {
     price: number;
     description: string;
     imageUrl: string;
+    rate: number = -1;
     private _totalPlaces: number;
     private _availablePlaces: number;
 
