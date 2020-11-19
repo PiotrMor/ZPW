@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Trip } from 'src/app/model/Trip';
+import { TripsService } from 'src/app/services/trips.service';
 
 @Component({
   selector: 'app-trip-list',
@@ -10,11 +11,12 @@ export class TripListComponent implements OnInit {
   tripList: Trip[] = [];
   totalReservations: number = 0;
 
-  constructor() {
+  constructor(private tripsService: TripsService) {
   }
   
   ngOnInit(): void {
-    this.addRandomTrips();
+    //this.addRandomTrips();
+    this.tripList = this.tripsService.getTrips();
   }
 
   isCheapest(trip: Trip): boolean {
@@ -46,72 +48,109 @@ export class TripListComponent implements OnInit {
   handleReservationEvent(value: number) {
     this.totalReservations += value;
   }
-
+/* 
   addRandomTrips() {
-    let trip1: Trip = new Trip("Wycieczka do Paryża", "Francja");
-    trip1.startDate = new Date("2020-12-28");
-    trip1.endDate = new Date("2021-01-5");
-    trip1.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ";
-    trip1.price = 300;
-    trip1.imageUrl = "https://www.travelmoney.co.nz/sites/v1.travelmoney.co.nz/files/France-small-640x480_1.jpg";
-    trip1.totalPlaces = 30;
+    let trip1 ={
+      name: "Wycieczka do Paryża",
+      destination: "Francja",
+      startDate: new Date("2020-12-28"),
+      endDate: new Date("2021-01-5"),
+      price: 300,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ",
+      imageUrl: "https://www.travelmoney.co.nz/sites/v1.travelmoney.co.nz/files/France-small-640x480_1.jpg",
+      rate: 0,
+      totalPlaces: 30,
+      availablePlaces: 30
+    }
+   let trip2 ={
+      name: "Wycieczka do Amsterdamu",
+      destination: "Holandia",
+      startDate: new Date("2020-12-28"),
+      endDate: new Date("2021-01-5"),
+      price: 703,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ",
+      imageUrl: "https://www.travelmoney.co.nz/sites/v1.travelmoney.co.nz/files/France-small-640x480_1.jpg",
+      rate: 4,
+      totalPlaces: 40,
+      availablePlaces: 40
+    }
 
-    let trip2: Trip = new Trip("Wycieczka do Amsterdamu", "Holandia");
-    trip2.startDate = new Date("2020-12-28");
-    trip2.endDate = new Date("2021-01-5");
-    trip2.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ";
-    trip2.price = 704;
-    trip2.imageUrl = "https://cdn.pixabay.com/photo/2016/01/19/19/26/amsterdam-1150319_960_720.jpg";
-    trip2.totalPlaces = 20;
-    trip2.rate = 4;
+   let trip3 ={
+      name: "Wycieczka do Moskwy",
+      destination: "Rosja",
+      startDate: new Date("2020-12-28"),
+      endDate: new Date("2021-01-5"),
+      price: 1703,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ",
+      imageUrl: "https://cdn.pixabay.com/photo/2016/07/30/08/13/moscow-1556561_960_720.jpg",
+      rate: 0,
+      totalPlaces: 15,
+      availablePlaces: 15
+    }
 
-    let trip3: Trip = new Trip("Wycieczka do Moskwy", "Rosja");
-    trip3.startDate = new Date("2020-12-28");
-    trip3.endDate = new Date("2021-01-5");
-    trip3.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ";
-    trip3.price = 1204;
-    trip3.imageUrl = "https://cdn.pixabay.com/photo/2016/07/30/08/13/moscow-1556561_960_720.jpg";
-    trip3.totalPlaces = 10;
 
-    let trip4: Trip = new Trip("Wycieczka do Barcelony", "Hiszpania");
-    trip4.startDate = new Date("2020-12-28");
-    trip4.endDate = new Date("2021-01-5");
-    trip4.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ";
-    trip4.price = 2204;
-    trip4.imageUrl = "https://cdn.pixabay.com/photo/2014/11/30/20/46/sagrada-familia-552084_960_720.jpg";
-    trip4.totalPlaces = 20;
+   let trip4 ={
+      name: "Wycieczka do Barcelony",
+      destination: "Hiszpania",
+      startDate: new Date("2020-12-28"),
+      endDate: new Date("2021-01-5"),
+      price: 2204,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ",
+      imageUrl: "https://cdn.pixabay.com/photo/2014/11/30/20/46/sagrada-familia-552084_960_720.jpg",
+      rate: 0,
+      totalPlaces: 20,
+      availablePlaces: 20
+    }
 
-    let trip5: Trip = new Trip("Wycieczka do Krakowa", "Polska");
-    trip5.startDate = new Date("2020-12-28");
-    trip5.endDate = new Date("2021-01-5");
-    trip5.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ";
-    trip5.price = 3204;
-    trip5.imageUrl = "https://cdn.pixabay.com/photo/2019/09/12/18/34/street-4472321_960_720.jpg";
-    trip5.totalPlaces = 20;
+   let trip5 ={
+      name: "Wycieczka do Krakowa",
+      destination: "Polska",
+      startDate: new Date("2020-12-28"),
+      endDate: new Date("2021-01-5"),
+      price: 3204,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ",
+      imageUrl: "https://cdn.pixabay.com/photo/2019/09/12/18/34/street-4472321_960_720.jpg",
+      rate: 0,
+      totalPlaces: 25,
+      availablePlaces: 25
+    }
+   let trip6 ={
+      name: "Wycieczka do Berlina",
+      destination: "Niemcy",
+      startDate: new Date("2020-12-28"),
+      endDate: new Date("2021-01-5"),
+      price: 504,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ",
+      imageUrl: "https://cdn.pixabay.com/photo/2013/10/28/18/51/brandenburger-tor-201939_960_720.jpg",
+      rate: 0,
+      totalPlaces: 100,
+      availablePlaces: 100
+    }
+   let trip7 ={
+      name: "Wycieczka do Kopenhagi",
+      destination: "Dania",
+      startDate: new Date("2020-12-28"),
+      endDate: new Date("2021-01-5"),
+      price: 647,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ",
+      imageUrl: "https://cdn.pixabay.com/photo/2020/01/06/21/24/evening-4746326_960_720.jpg",
+      rate: 0,
+      totalPlaces: 10,
+      availablePlaces: 10
+    }
 
-    let trip6: Trip = new Trip("Wycieczka do Berlina", "Niemcy");
-    trip6.startDate = new Date("2020-12-28");
-    trip6.endDate = new Date("2021-01-5");
-    trip6.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ";
-    trip6.price = 504;
-    trip6.imageUrl = "https://cdn.pixabay.com/photo/2013/10/28/18/51/brandenburger-tor-201939_960_720.jpg";
-    trip6.totalPlaces = 20;
-
-    let trip7: Trip = new Trip("Wycieczka do Kopenhagi", "Dania");
-    trip7.startDate = new Date("2020-12-28");
-    trip7.endDate = new Date("2021-01-5");
-    trip7.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ";
-    trip7.price = 647;
-    trip7.imageUrl = "https://cdn.pixabay.com/photo/2020/01/06/21/24/evening-4746326_960_720.jpg";
-    trip7.totalPlaces = 15;
-
-    let trip8: Trip = new Trip("Wycieczka do Los Angeles", "Stany Zjednoczone");
-    trip8.startDate = new Date("2020-12-28");
-    trip8.endDate = new Date("2021-01-5");
-    trip8.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ";
-    trip8.price = 1204;
-    trip8.imageUrl = "https://cdn.pixabay.com/photo/2016/08/16/17/32/hollywood-sign-1598473__340.jpg";
-    trip8.totalPlaces = 20;
+   let trip8 ={
+      name: "Wycieczka do Los Angeles",
+      destination: "Stany Zjednoczone",
+      startDate: new Date("2020-12-28"),
+      endDate: new Date("2021-01-5"),
+      price: 1203,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut condimentum velit, vitae posuere dolor. Morbi sit amet ante et nisl faucibus gravida non vel leo. Aenean non congue ante, eu malesuada tortor. Fusce faucibus, erat ut suscipit tempor, metus libero tristique sapien, ut malesuada tortor mi sed eros. Vivamus eget ligula neque. ",
+      imageUrl: "https://cdn.pixabay.com/photo/2016/08/16/17/32/hollywood-sign-1598473__340.jpg",
+      rate: 0,
+      totalPlaces: 20,
+      availablePlaces: 20
+    }
     
     this.tripList.push(trip1);
     this.tripList.push(trip2);
@@ -121,5 +160,5 @@ export class TripListComponent implements OnInit {
     this.tripList.push(trip6);
     this.tripList.push(trip7);
     this.tripList.push(trip8);
-  }
+  } */
 }
