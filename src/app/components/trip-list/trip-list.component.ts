@@ -41,7 +41,7 @@ export class TripListComponent implements OnInit {
     let index = this.tripList.indexOf(trip);
     if (index !== -1) {
       this.tripList.splice(index, 1);
-      this.totalReservations = trip.totalPlaces - trip.availablePlaces;
+      this.totalReservations -= trip.totalPlaces - trip.availablePlaces;
     }
   }
 
