@@ -23,6 +23,10 @@ import {TextFieldModule} from '@angular/cdk/text-field';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { CartComponent } from './components/cart/cart.component';
 import { CartElementComponent } from './components/cart-element/cart-element.component';
+import { SummaryComponent } from './components/summary/summary.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { TripsService } from './services/trips.service';
 
 
 
@@ -35,6 +39,7 @@ import { CartElementComponent } from './components/cart-element/cart-element.com
     NewTripComponent,
     CartComponent,
     CartElementComponent,
+    SummaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,9 @@ import { CartElementComponent } from './components/cart-element/cart-element.com
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    TextFieldModule
+    TextFieldModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(TripsService)
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' }

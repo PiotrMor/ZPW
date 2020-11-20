@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Cart } from 'src/app/model/Cart';
 import { CartService } from 'src/app/services/cart.service';
+import { TripsService } from 'src/app/services/trips.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,8 +11,8 @@ import { CartService } from 'src/app/services/cart.service';
 export class CartComponent implements OnInit {
   cart: Cart;
 
-  constructor(private cartService: CartService) {
-   }
+  constructor(private cartService: CartService, private tripsService: TripsService) {
+  }
 
   ngOnInit(): void {
     this.cart = this.cartService.getCart(1); //TODO: Insert correct id 
@@ -20,7 +21,7 @@ export class CartComponent implements OnInit {
   getTotalPrice(): number {
     let totalPrice = 0;
     this.cart.elements.forEach(element => {
-      totalPrice += element.trip.price * element.amount;
+      totalPrice += this.tripsService.getTrip(element.tripId).price * element.amount;
     });
     return totalPrice;
   }

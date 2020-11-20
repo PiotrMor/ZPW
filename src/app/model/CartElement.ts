@@ -1,6 +1,6 @@
 import { Trip } from './Trip';
 
 export interface CartElement {
-    trip: Trip;
+    tripId: number;
     amount: number;
 }
