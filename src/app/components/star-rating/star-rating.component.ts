@@ -21,7 +21,6 @@ export class StarRatingComponent implements OnInit {
   }
 
   isMarked(index: number) {
-
     return index < this.value;
   }
 

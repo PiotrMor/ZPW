@@ -21,6 +21,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { CartComponent } from './components/cart/cart.component';
+import { CartElementComponent } from './components/cart-element/cart-element.component';
 
 
 
@@ -31,6 +33,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     TripComponent,
     StarRatingComponent,
     NewTripComponent,
+    CartComponent,
+    CartElementComponent,
   ],
   imports: [
     BrowserModule,
