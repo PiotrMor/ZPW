@@ -49,7 +49,7 @@ export class TripComponent implements OnInit {
     }
   }
 
-  removeRequest() {
+  removeTrip() {
     this.removeTripEvent.emit(this.trip);
   }
 }

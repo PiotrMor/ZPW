@@ -9,18 +9,19 @@ export class TripsService {
 
   constructor() { }
 
-  getTrips() {
+  getTrips(): Trip[] {
     return data;
   }
 
-  getTrip() {
+  getTrip(tripId: number): Trip {
+    return null;
   }
 
-  addTrip(newTrip: Trip) {
-    
+  addTrip(newTrip: Trip): boolean {
+    return false;
   }
 
-  deleteTrip() {
-
+  deleteTrip(tripId: number): boolean {
+    return false;
   }
 }
