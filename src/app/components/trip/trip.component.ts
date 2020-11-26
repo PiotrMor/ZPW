@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CartElement } from 'src/app/model/CartElement';
 import { Trip } from 'src/app/model/Trip';
 
 @Component({
@@ -18,7 +19,7 @@ export class TripComponent implements OnInit {
   isMostExpensive: boolean;
 
   @Output()
-  reservationEvent = new EventEmitter<number>();
+  reservationEvent = new EventEmitter<CartElement>();
 
   @Output()
   removeTripEvent = new EventEmitter<Trip>();
@@ -38,18 +39,21 @@ export class TripComponent implements OnInit {
 
   addReservation() {
     this.trip.availablePlaces -= 1;
-    this.reservationEvent.emit(1);
-    console.log(this.trip.rate);
+    this.reservationEvent.emit(this.getReservationEvent(1));
   }
 
   removeReservation() {
     if (this.trip.availablePlaces < this.trip.totalPlaces) {
       this.trip.availablePlaces += 1;
-      this.reservationEvent.emit(-1);
+      this.reservationEvent.emit(this.getReservationEvent(-1));
     }
   }
 
   removeTrip() {
     this.removeTripEvent.emit(this.trip);
+  }
+
+  getReservationEvent(amount: number): CartElement {
+    return {tripId: this.trip.id, amount: amount}
   }
 }

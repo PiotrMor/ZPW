@@ -22,11 +22,12 @@ export class TripsService implements InMemoryDbService {
   }
 
   getTrip(tripId: number): Trip {
-    data.forEach(trip =>{
+    for (let trip of data) {
       if (trip.id === tripId) {
         return trip;
       }
-    });
+    }
+
     return null;
   }
 

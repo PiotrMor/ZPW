@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Cart } from 'src/app/model/Cart';
+import { CartElement } from 'src/app/model/CartElement';
 import { Trip } from 'src/app/model/Trip';
 import { TripsService } from 'src/app/services/trips.service';
 
@@ -10,13 +12,14 @@ import { TripsService } from 'src/app/services/trips.service';
 export class TripListComponent implements OnInit {
   tripList: Trip[] = [];
   totalReservations: number = 0;
+  cart: Cart;
 
   constructor(private tripsService: TripsService) {
   }
   
   ngOnInit(): void {
-    //this.addRandomTrips();
     this.tripList = this.tripsService.getTrips();
+    this.initializeCart();
   }
 
   isCheapest(trip: Trip): boolean {
@@ -38,14 +41,37 @@ export class TripListComponent implements OnInit {
   }
 
   removeTrip(trip: Trip) {
-    let index = this.tripList.indexOf(trip);
-    if (index !== -1) {
-      this.tripList.splice(index, 1);
-      this.totalReservations -= trip.totalPlaces - trip.availablePlaces;
+    let tripListIndex = this.tripList.indexOf(trip);
+    let cartIndex = this.cart.elements.indexOf(this.getCartElementById(trip.id));
+    if (tripListIndex !== -1) {
+      this.tripList.splice(tripListIndex, 1);
+      this.cart.elements.splice(cartIndex, 1);
     }
   }
 
-  handleReservationEvent(value: number) {
-    this.totalReservations += value;
+  handleReservationEvent(event: CartElement) {
+    for (let element of this.cart.elements) {
+      if (element.tripId === event.tripId) {
+        element.amount += event.amount;
+        return;
+      }
+    }
+    this.cart.elements.push(event);
+  }
+
+  initializeCart() {
+    this.cart = {
+      elements: [],
+      id: 1
+    }
+  }
+
+  getCartElementById(id: number): CartElement {
+    for (let element of this.cart.elements) {
+      if (element.tripId === id) {
+        return element;
+      }
+    }
+    return null;
   }
 }

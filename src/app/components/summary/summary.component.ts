@@ -12,9 +12,11 @@ export class SummaryComponent implements OnInit {
   @Input()
   cart: Cart;
 
-  constructor(private tripsService: TripsService) { }
+  constructor(private tripsService: TripsService) {
+  }
 
   ngOnInit(): void {
+
   }
 
   getNumberOfReservations() {
@@ -22,12 +24,13 @@ export class SummaryComponent implements OnInit {
     this.cart.elements.forEach(element => {
       numberOfReservations += element.amount;
     });
+    return numberOfReservations;
   }
 
   getTotalPrice() {
-    let totalPrice;
+    let totalPrice = 0;
     this.cart.elements.forEach(element => {
-      totalPrice = this.tripsService.getTrip(element.tripId).price * element.amount;
+      totalPrice += this.tripsService.getTrip(element.tripId).price * element.amount;
     })
     return totalPrice;
   }
