@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Trip } from 'src/app/model/Trip';
+import { TripsService } from 'src/app/services/trips.service';
 
 @Component({
   selector: 'app-trip-filter',
@@ -12,7 +13,6 @@ export class TripFilterComponent implements OnInit {
   currentLowestPrice: number;
   currentHighestPrice: number;
   destinations: string[] = [];
-  fullTripList: Trip[];
   selectedDestinations: string[];
   numberOfDestinations: number;
 
@@ -31,15 +31,17 @@ export class TripFilterComponent implements OnInit {
   @Output()
   priceFilterChange = new EventEmitter<number[]>();
 
-  constructor() { }
+  constructor(private tripsService: TripsService) { }
 
   ngOnInit(): void {
-    this.fullTripList = this.trips;
-    this.initializeFilterValues();
-    this.currentLowestPrice = this.lowestPrice;
-    this.currentHighestPrice = this.highestPrice;
-    this.emitPriceFilter();
-
+    this.tripsService.getTrips().subscribe(trips => {
+      this.trips = trips;
+      this.initializeFilterValues();    
+      this.currentLowestPrice = this.lowestPrice;
+      this.currentHighestPrice = this.highestPrice;
+      this.emitPriceFilter();
+    });
+    
   }
 
   initializeFilterValues() {

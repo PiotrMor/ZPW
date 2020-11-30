@@ -1,24 +1,22 @@
 import { Injectable } from '@angular/core';
 import data from '../../../FakeData.json'
 import { Trip } from '../model/Trip';
-import { InMemoryDbService, RequestInfo } from 'angular-in-memory-web-api';
+import { RequestInfo } from 'angular-in-memory-web-api';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class TripsService implements InMemoryDbService {
-  SERVER_URL: string = "http://localhost:8080/api/";
+export class TripsService {
+  private trips_url: string = "api/trips";
 
-  constructor() { }
-  createDb(reqInfo?: RequestInfo): {} | Observable<{}> | Promise<{}> {
-    let trips = data;
-    return {trips};
-  }
+  constructor(private http: HttpClient) { }
 
-  getTrips(): Trip[] {
-    return data;
+  getTrips(): Observable<Trip[]> {
+    return this.http.get<Trip[]>(this.trips_url);
+    //return data;
   }
 
   getTrip(tripId: number): Trip {

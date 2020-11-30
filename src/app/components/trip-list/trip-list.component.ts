@@ -10,7 +10,7 @@ import { TripsService } from 'src/app/services/trips.service';
   styleUrls: ['./trip-list.component.scss']
 })
 export class TripListComponent implements OnInit {
-  tripList: Trip[] = [];
+  tripList: Trip[];
   totalReservations: number = 0;
   cart: Cart;
 
@@ -22,7 +22,7 @@ export class TripListComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.tripList = this.tripsService.getTrips();
+    this.tripsService.getTrips().subscribe(trips => {console.log(trips); this.tripList = trips });
     this.initializeCart();
   }
 

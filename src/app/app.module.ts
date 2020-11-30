@@ -33,6 +33,7 @@ import {MatListModule} from '@angular/material/list';
 import { RateFilterPipe } from './pipes/rate-filter.pipe';
 import { DestinationFilterPipe } from './pipes/destination-filter.pipe';
 import { PriceFilterPipe } from './pipes/price-filter.pipe';
+import { InMemTripService } from './services/in-mem-trip.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import { PriceFilterPipe } from './pipes/price-filter.pipe';
     MatNativeDateModule,
     TextFieldModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(TripsService),
+    HttpClientInMemoryWebApiModule.forRoot(InMemTripService),
     MatSidenavModule,
     MatListModule
   ],
