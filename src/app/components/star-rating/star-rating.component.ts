@@ -25,7 +25,11 @@ export class StarRatingComponent implements OnInit {
   }
 
   changeValue(value: number) {
-    this.value = value + 1;
-    this.valueChange.emit(value + 1);
+    if (this.value === value + 1) {
+      this.value = 0;
+    } else {
+      this.value = value + 1;
+    }
+    this.valueChange.emit(this.value);
   }
 }

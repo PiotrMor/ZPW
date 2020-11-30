@@ -19,7 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {TextFieldModule} from '@angular/cdk/text-field';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { CartComponent } from './components/cart/cart.component';
 import { CartElementComponent } from './components/cart-element/cart-element.component';
@@ -27,8 +27,12 @@ import { SummaryComponent } from './components/summary/summary.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { TripsService } from './services/trips.service';
-
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { TripFilterComponent } from './components/trip-filter/trip-filter.component';
+import {MatListModule} from '@angular/material/list';
+import { RateFilterPipe } from './pipes/rate-filter.pipe';
+import { DestinationFilterPipe } from './pipes/destination-filter.pipe';
+import { PriceFilterPipe } from './pipes/price-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,10 @@ import { TripsService } from './services/trips.service';
     CartComponent,
     CartElementComponent,
     SummaryComponent,
+    TripFilterComponent,
+    RateFilterPipe,
+    DestinationFilterPipe,
+    PriceFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -59,7 +67,9 @@ import { TripsService } from './services/trips.service';
     MatNativeDateModule,
     TextFieldModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(TripsService)
+    HttpClientInMemoryWebApiModule.forRoot(TripsService),
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' }

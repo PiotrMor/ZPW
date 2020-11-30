@@ -1,8 +1,16 @@
-<div class=container>
-    <app-summary [cart]="cart"></app-summary>
-    <div class="trip-list" *ngFor="let trip of tripList">
-        <app-trip [trip]="trip" [isCheapest]="isCheapest(trip)" [isMostExpensive]="isMostExpensive(trip)" 
-        (removeTripEvent)="removeTrip($event)" (reservationEvent)=handleReservationEvent($event)></app-trip>
-    
+<mat-sidenav-container>
+    <mat-sidenav mode="side" class="filter-sidenav" opened>
+        <app-trip-filter [(trips)]="tripList " (rateFilterChange)=rateFilterChange($event) (destinationFilterChange)=destinationFilterChange($event)
+        (priceFilterChange)=priceFilterChange($event)></app-trip-filter>
+    </mat-sidenav>
+    <div class="main-content">
+        <app-summary [cart]="cart"></app-summary>
+        <div class="trip-list" *ngFor="let trip of (tripList | rateFilter: rateFilter) | destinationFilter: destinationFilter | priceFilter: priceFilter">
+            <app-trip [trip]="trip" [isCheapest]="isCheapest(trip)" [isMostExpensive]="isMostExpensive(trip)"
+                (removeTripEvent)="removeTrip($event)" (reservationEvent)=handleReservationEvent($event)></app-trip>
+
+        </div>
     </div>
-</div>
+
+
+</mat-sidenav-container>

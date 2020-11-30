@@ -14,6 +14,10 @@ export class TripListComponent implements OnInit {
   totalReservations: number = 0;
   cart: Cart;
 
+  rateFilter: number = 0;
+  destinationFilter: string[] = [];
+  priceFilter: number[] = [];
+
   constructor(private tripsService: TripsService) {
   }
   
@@ -73,5 +77,17 @@ export class TripListComponent implements OnInit {
       }
     }
     return null;
+  }
+
+  rateFilterChange(value: number) {
+    this.rateFilter = value;
+  }
+
+  destinationFilterChange(value: string[]) {
+    this.destinationFilter = value;
+  }
+
+  priceFilterChange(value: number[]) {
+    this.priceFilter = value;
   }
 }

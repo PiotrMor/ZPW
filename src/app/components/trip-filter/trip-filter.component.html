@@ -1,0 +1,36 @@
+<div fxLayout="column" fxLayoutAlign="space-evenly start">
+    <div>
+        <p>Cena:</p>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" >
+            <div>
+                <mat-form-field class="short-input">
+                    <mat-label>Minimalna</mat-label>
+                    <input matInput [(ngModel)]="currentLowestPrice" (blur)=filterByPrice()>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="short-input">
+                    <mat-label>Maksymalna</mat-label>
+                    <input matInput [(ngModel)]="currentHighestPrice" (blur)=filterByPrice()>
+        
+                </mat-form-field>
+            </div>
+
+        </div>
+        
+    </div>
+
+    <div>
+        <p>Ocena:</p>
+        <app-star-rating (valueChange)=filterByRate($event)></app-star-rating>
+    </div>
+
+    <div>
+        Kraje docelowe:
+        <mat-selection-list #selected [(ngModel)]="selectedDestinations" (ngModelChange)="filterByDestination($event)">
+            <mat-list-option *ngFor="let destination of destinations" [value]="destination">
+                {{destination}}
+            </mat-list-option>
+        </mat-selection-list>
+    </div>
+</div>

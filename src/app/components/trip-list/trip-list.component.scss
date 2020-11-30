@@ -89,3 +89,18 @@ flex-direction: row;
     border: 5px solid red;
 }
 
+
+.filter-sidenav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+  }
+
+
+.main-content {
+    width: 65%;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
