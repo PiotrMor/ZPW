@@ -34,6 +34,7 @@ import { RateFilterPipe } from './pipes/rate-filter.pipe';
 import { DestinationFilterPipe } from './pipes/destination-filter.pipe';
 import { PriceFilterPipe } from './pipes/price-filter.pipe';
 import { InMemTripService } from './services/in-mem-trip.service';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { InMemTripService } from './services/in-mem-trip.service';
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemTripService),
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    AppRoutingModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' }

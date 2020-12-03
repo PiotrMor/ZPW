@@ -300,8 +300,11 @@
 
 <!-- Toolbar -->
 <ng-container >
-  <mat-toolbar color="primary"></mat-toolbar>
+  <mat-toolbar color="primary">
+      <a mat-button class="nav-button" routerLink="/trips">Lista</a>
+      <a mat-button class="nav-button" routerLink="/newTrip">Nowy</a>
+  </mat-toolbar>
 
-  <app-trip-list></app-trip-list>
+  <router-outlet></router-outlet>
   
 </ng-container>
