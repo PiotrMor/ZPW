@@ -12,19 +12,19 @@ export class AuthService {
 
   constructor(private fireAuth: AngularFireAuth) { }
 
-  getUser(): User | null {
-    return this.fireAuth.auth.currentUser;
+  getUser(): Promise<User> {
+    return this.fireAuth.currentUser
   }
 
   login({email, password}: Credentials) {
-    return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
+    return this.fireAuth.signInWithEmailAndPassword(email, password);
   }
 
   register({email, password}: Credentials) {
-    return this.fireAuth.auth.createUserWithEmailAndPassword(email, password);
+    return this.fireAuth.createUserWithEmailAndPassword(email, password);
   }
  
   logout() {
-    return this.fireAuth.auth.signOut();
+    return this.fireAuth.signOut();
   }
 }

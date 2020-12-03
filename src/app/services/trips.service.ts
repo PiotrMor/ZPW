@@ -4,30 +4,59 @@ import { Trip } from '../model/Trip';
 import { RequestInfo } from 'angular-in-memory-web-api';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TripsService {
-  private trips_url: string = "api/trips";
-
-  constructor(private http: HttpClient) { }
+  private path = 'trips/';
+  tripsRef: AngularFirestoreCollection<Trip> = null;
+  constructor(private http: HttpClient, private db: AngularFirestore ) { 
+    this.tripsRef = this.db.collection(this.path);
+  }
 
   getTrips(): Observable<Trip[]> {
-    return this.http.get<Trip[]>(this.trips_url);
-    //return data;
+    return this.tripsRef.valueChanges();
   }
 
-  getTrip(tripId: number): Trip {
-    for (let trip of data) {
-      if (trip.id === tripId) {
-        return trip;
+  addTrip(newTrip: Trip): Promise<any> {
+    return this.tripsRef.add(newTrip);
+  }
+
+  deleteTrip(tripId): Promise<any> {
+    return this.tripsRef.doc(tripId).delete();
+  }
+
+  getTrip(tripId: string): Observable<Trip> {
+    return this.db.doc<Trip>(tripId).snapshotChanges().pipe(map(changes => {
+      const data: Trip = changes.payload.data();
+      const id = changes.payload.id;
+      return {id, ...data};
+    }))
+  }
+/*   getTrip(tripId: string) {
+    return this.db.doc(tripId).ref.get().then(document => {
+      if (document.exists) {
+        console.log("Document data:", (Trip) document.data());
+      } else {
+        console.log("No such document!");
       }
-    }
+    }).catch(function(error) {
+      console.log("Error getting document:", error);
+    });
+  } */
 
-    return null;
+
+
+
+
+/*   getTrips(): Observable<Trip[]> {
+    return this.http.get<Trip[]>(this.trips_url);
   }
+
+
 
   addTrip(newTrip: Trip): boolean {
     return false;
@@ -35,5 +64,5 @@ export class TripsService {
 
   deleteTrip(tripId: number): boolean {
     return false;
-  }
+  } */
 }

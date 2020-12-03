@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Trip } from 'src/app/model/Trip';
 import { TripsService } from 'src/app/services/trips.service';
 
@@ -23,7 +24,7 @@ export class NewTripComponent implements OnInit {
   );
 
 
-  constructor(private tripsService: TripsService) { }
+  constructor(private tripsService: TripsService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -31,7 +32,12 @@ export class NewTripComponent implements OnInit {
   onSubmit(){
     let newTrip: Trip;
     newTrip = this.tripForm.value;
-    this.tripsService.addTrip(newTrip);
+    newTrip.availablePlaces = newTrip.totalPlaces;
+    this.tripsService.addTrip(newTrip).then(ref => {
+      ref.set({id: ref.id}, {merge: true}).then(() => {
+        this.router.navigate(["trips"]);
+      })
+    });
   }
 
 }

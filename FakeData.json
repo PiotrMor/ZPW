@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": "1",
         "name": "Wycieczka do Paryża",
         "destination": "Francja",
         "startDate": "28.12.2020",
@@ -13,7 +13,7 @@
         "availablePlaces": 30
     },
     {
-        "id": 2,
+        "id": "2",
         "name": "Wycieczka do Amsterdamu",
         "destination": "Holandia",
         "startDate": "28.12.2020",
@@ -26,7 +26,7 @@
         "availablePlaces": 40
     },
     {
-        "id": 3,
+        "id": "3",
         "name": "Wycieczka do Moskwy",
         "destination": "Rosja",
         "startDate": "28.12.2020",
@@ -39,7 +39,7 @@
         "availablePlaces": 15
     },
     {
-        "id": 4,
+        "id": "4",
         "name": "Wycieczka do Barcelony",
         "destination": "Hiszpania",
         "startDate": "28.12.2020",
@@ -52,7 +52,7 @@
         "availablePlaces": 20
     },
     {
-        "id":5,
+        "id":"5",
         "name": "Wycieczka do Krakowa",
         "destination": "Polska",
         "startDate": "28.12.2020",
@@ -65,7 +65,7 @@
         "availablePlaces": 25
     },
     {
-        "id": 6,
+        "id": "6",
         "name": "Wycieczka do Berlina",
         "destination": "Niemcy",
         "startDate": "28.12.2020",
@@ -78,7 +78,7 @@
         "availablePlaces": 100
     },
     {
-        "id": 7,
+        "id": "7",
         "name": "Wycieczka do Kopenhagi",
         "destination": "Dania",
         "startDate": "28.12.2020",
@@ -91,7 +91,7 @@
         "availablePlaces": 10
     },
     {
-        "id": 8,
+        "id": "8",
         "name": "Wycieczka do Los Angeles",
         "destination": "Stany Zjednoczone",
         "startDate": "28.12.2020",

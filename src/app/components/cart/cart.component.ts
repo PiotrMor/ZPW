@@ -20,9 +20,12 @@ export class CartComponent implements OnInit {
 
   getTotalPrice(): number {
     let totalPrice = 0;
-    this.cart.elements.forEach(element => {
-      totalPrice += this.tripsService.getTrip(element.tripId).price * element.amount;
-    });
+/*     this.cart.elements.forEach(element => {
+      this.tripsService.getTrip(element.tripId).subscribe(trip => {
+        totalPrice += trip.price * element.amount;
+        console.log(trip);
+      });
+    }); */
     return totalPrice;
   }
 }

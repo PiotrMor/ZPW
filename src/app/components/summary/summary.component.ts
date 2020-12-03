@@ -29,9 +29,9 @@ export class SummaryComponent implements OnInit {
 
   getTotalPrice() {
     let totalPrice = 0;
-    this.cart.elements.forEach(element => {
-      totalPrice += this.tripsService.getTrip(element.tripId).price * element.amount;
-    })
+/*     this.cart.elements.forEach(element => {
+      this.tripsService.getTrip(element.tripId).toPromise().then(trip => totalPrice += trip.price * element.amount);
+    }); */
     return totalPrice;
   }
 }
