@@ -35,6 +35,10 @@ import { DestinationFilterPipe } from './pipes/destination-filter.pipe';
 import { PriceFilterPipe } from './pipes/price-filter.pipe';
 import { InMemTripService } from './services/in-mem-trip.service';
 import { AppRoutingModule } from './app-routing.module';
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -72,7 +76,10 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientInMemoryWebApiModule.forRoot(InMemTripService),
     MatSidenavModule,
     MatListModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' }
