@@ -5,11 +5,12 @@ import { NewTripComponent } from './components/new-trip/new-trip.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TripDetailsComponent } from './components/trip-details/trip-details.component';
 import { TripListComponent } from './components/trip-list/trip-list.component';
+import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: 'trips', component: TripListComponent,  canActivate: [AuthGuard] },
-  { path: 'newTrip', component: NewTripComponent,  canActivate: [AuthGuard] },
+  { path: 'newTrip', component: NewTripComponent,  canActivate: [AuthGuard, AdminGuard] },
   { path: '', redirectTo: '/trips', pathMatch:'full', canActivate: [AuthGuard] },
   { path: 'trips/:id', component: TripDetailsComponent,  canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},
