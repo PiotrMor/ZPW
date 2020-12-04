@@ -1,0 +1,17 @@
+<div class="container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div fxLayout="column">
+            <mat-form-field appearance="standard">
+                <mat-label>Adres email</mat-label>
+                <input matInput formControlName="email">
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Hasło</mat-label>
+                <input type="password" matInput formControlName="password">
+            </mat-form-field>
+            <div>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Zaloguj</button>
+            </div>
+        </div>
+    </form>
+</div>

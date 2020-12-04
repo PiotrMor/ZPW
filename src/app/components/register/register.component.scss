@@ -1,0 +1,19 @@
+.container {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+  }
+
+  .select-role {
+      margin: 10px;
+  }
+
+  .role-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+  
+  .role-radio-button {
+    margin: 5px;
+  }

@@ -1,0 +1,25 @@
+<div class="container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div fxLayout="column">
+            <mat-form-field appearance="standard">
+                <mat-label>Adres email</mat-label>
+                <input matInput formControlName="email">
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Hasło</mat-label>
+                <input type="password" matInput formControlName="password">
+            </mat-form-field>
+            <label id="role-radio-group-label">Wybierz typ konta</label>
+            <mat-radio-group aria-labelledby="role-radio-group-label" class="role-radio-group"
+                [(ngModel)]="selectedRole" [ngModelOptions]="{standalone: true}">
+                <mat-radio-button class="role-radio-button" *ngFor="let role of roles" [value]="role">
+                    {{role}}
+                </mat-radio-button>
+            </mat-radio-group>
+            <div>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Załóż
+                    konto</button>
+            </div>
+        </div>
+    </form>
+</div>

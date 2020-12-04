@@ -41,6 +41,10 @@ import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { TripDetailsComponent } from './components/trip-details/trip-details.component';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 @NgModule({
   declarations: [
@@ -56,7 +60,9 @@ import {IvyCarouselModule} from 'angular-responsive-carousel';
     RateFilterPipe,
     DestinationFilterPipe,
     PriceFilterPipe,
-    TripDetailsComponent
+    TripDetailsComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +89,8 @@ import {IvyCarouselModule} from 'angular-responsive-carousel';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    IvyCarouselModule
+    IvyCarouselModule,
+    MatRadioModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' }
