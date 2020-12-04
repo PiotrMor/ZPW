@@ -299,12 +299,27 @@
 </style>
 
 <!-- Toolbar -->
-<ng-container >
+<ng-container>
   <mat-toolbar color="primary">
-      <a mat-button class="nav-button" routerLink="/trips">Lista</a>
-      <a mat-button class="nav-button" routerLink="/newTrip">Nowy</a>
+    <span *ngIf="isLogged">
+      <a mat-button class="nav-button" routerLink="/trips">Lista wycieczek</a>
+    </span>
+    <span *ngIf="isAdmin">
+      <a mat-button class="nav-button" routerLink="/newTrip">Nowa wycieczka</a>
+      <a mat-button class="nav-button" routerLink="/admin">Panel administratora</a>
+    </span>
+    <span class="fill-remaining-space"></span>
+    <span *ngIf="!isLogged; else loggedIn">
+      <a class="float-right" mat-button class="nav-button" routerLink="/register">Rejestracja</a>
+      <a class="float-right" mat-button class="nav-button" routerLink="/login">Logowanie</a>
+    </span>
+
+    <ng-template #loggedIn>
+      <a class="float-right" mat-button class="nav-button" routerLink="/login" (click)="logout()">Wyloguj się</a>
+    </ng-template>
+
   </mat-toolbar>
 
   <router-outlet></router-outlet>
-  
+
 </ng-container>
