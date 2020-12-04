@@ -11,6 +11,7 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   { path: 'trips', component: TripListComponent,  canActivate: [AuthGuard] },
   { path: 'newTrip', component: NewTripComponent,  canActivate: [AuthGuard, AdminGuard] },
+  { path: 'updateTrip/:id', component: NewTripComponent,  canActivate: [AuthGuard, AdminGuard] },
   { path: '', redirectTo: '/trips', pathMatch:'full', canActivate: [AuthGuard] },
   { path: 'trips/:id', component: TripDetailsComponent,  canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},

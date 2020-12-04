@@ -20,7 +20,10 @@ export class AdminGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
     return this.authService.authState$.pipe(switchMap(firebaseUser => {
-      return this.userService.getUser(firebaseUser.uid).pipe(map(user => user.role === 'admin'))
+      return this.userService.getUser(firebaseUser.uid).pipe(map(user => {
+        console.log(user);
+        return user.role === 'admin';
+      }))
     }));
   }
 

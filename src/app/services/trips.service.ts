@@ -25,6 +25,10 @@ export class TripsService {
     return this.tripsRef.add(newTrip);
   }
 
+  updateTrip(trip: Trip) {
+    return this.tripsRef.doc(trip.id).update(trip);
+  }
+
   deleteTrip(tripId): Promise<any> {
     return this.tripsRef.doc(tripId).delete();
   }

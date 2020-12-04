@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Trip } from 'src/app/model/Trip';
 import { TripsService } from 'src/app/services/trips.service';
 
@@ -10,10 +10,11 @@ import { TripsService } from 'src/app/services/trips.service';
   styleUrls: ['./new-trip.component.scss']
 })
 export class NewTripComponent implements OnInit {
+  trip: Trip
   tripForm = new FormGroup(
     {
       name: new FormControl('', Validators.required),
-      destination: new FormControl('',Validators.required),
+      destination: new FormControl('', Validators.required),
       startDate: new FormControl('', Validators.required),
       endDate: new FormControl('', Validators.required),
       price: new FormControl('', Validators.required),
@@ -24,20 +25,35 @@ export class NewTripComponent implements OnInit {
   );
 
 
-  constructor(private tripsService: TripsService, private router: Router) { }
+  constructor(private tripsService: TripsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      if (params.has("id")) {
+        this.tripsService.getTrip(params.get("id")).subscribe(result => {
+          this.trip = result;
+          this.tripForm.setValue(result);
+        });
+      }
+    });
   }
 
-  onSubmit(){
+  onSubmit() {
     let newTrip: Trip;
     newTrip = this.tripForm.value;
     newTrip.availablePlaces = newTrip.totalPlaces;
-    this.tripsService.addTrip(newTrip).then(ref => {
-      ref.set({id: ref.id}, {merge: true}).then(() => {
+    if (newTrip.id === null) {
+      this.tripsService.addTrip(newTrip).then(ref => {
+        ref.set({ id: ref.id }, { merge: true }).then(() => {
+          this.router.navigate(["trips"]);
+        })
+      });
+    } else {
+      this.tripsService.updateTrip(newTrip).then(() => {
         this.router.navigate(["trips"]);
       })
-    });
+    }
+
   }
 
 }

@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { AdminGuard } from 'src/app/guards/admin.guard';
 import { CartElement } from 'src/app/model/CartElement';
 import { Trip } from 'src/app/model/Trip';
 
@@ -8,6 +10,7 @@ import { Trip } from 'src/app/model/Trip';
   styleUrls: ['./trip.component.scss']
 })
 export class TripComponent implements OnInit {
+  isAdmin: boolean = false;
 
   @Input()
   trip: Trip;
@@ -24,9 +27,12 @@ export class TripComponent implements OnInit {
   @Output()
   removeTripEvent = new EventEmitter<Trip>();
 
-  constructor() { }
+  constructor(private router: Router, private adminGuard: AdminGuard) { }
 
   ngOnInit(): void {
+    this.adminGuard.canActivate(null, null).subscribe(result => {
+      this.isAdmin = result;
+    });
   }
 
   isAlmostSoldOut(): boolean {
@@ -51,6 +57,10 @@ export class TripComponent implements OnInit {
 
   removeTrip() {
     this.removeTripEvent.emit(this.trip);
+  }
+
+  updateTrip() {
+    this.router.navigate(["/updateTrip", this.trip.id]);
   }
 
   getReservationEvent(amount: number): CartElement {

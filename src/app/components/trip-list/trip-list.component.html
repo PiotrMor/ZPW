@@ -4,7 +4,7 @@
         (priceFilterChange)=priceFilterChange($event)></app-trip-filter>
     </mat-sidenav>
     <div class="main-content">
-        <app-summary [cart]="cart"></app-summary>
+        <!-- <app-summary [cart]="cart"></app-summary> -->
         <div class="trip-list" *ngFor="let trip of (tripList | rateFilter: rateFilter) | destinationFilter: destinationFilter | priceFilter: priceFilter">
             <app-trip [trip]="trip" [isCheapest]="isCheapest(trip)" [isMostExpensive]="isMostExpensive(trip)"
                 (removeTripEvent)="removeTrip($event)" (reservationEvent)=handleReservationEvent($event)></app-trip>

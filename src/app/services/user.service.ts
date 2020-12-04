@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { User } from '../model/User';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class UserService {
   }
 
   addUser(newUser: User): Promise<any> {
-    return this.db.collection(this.path).add(newUser);
+    return this.db.collection(this.path).doc(newUser.id).set(newUser);
   }
 
   getUser(userId: string): Observable<User> {

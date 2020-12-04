@@ -40,7 +40,6 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     let credentials: Credentials;
     credentials = this.registerForm.value;
-    console.log(credentials);
     this.authService.register(credentials).then(result => {
         this.userService.addUser({
           id: result.user.uid,
@@ -48,7 +47,7 @@ export class RegisterComponent implements OnInit {
           role: this.rolesMap[this.selectedRole]
         }).then(() => "New user created");
       this.router.navigate(["trips"]);
-    }).catch(err => console.log("Błędne dane logowania!"));
+    }).catch(err => console.log(err));
   }
 
 

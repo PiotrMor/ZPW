@@ -20,15 +20,21 @@ export class TripListComponent implements OnInit {
 
   constructor(private tripsService: TripsService) {
   }
-  
+
   ngOnInit(): void {
     this.fetchTripsList();
     this.initializeCart();
   }
 
   fetchTripsList(): void {
-    this.tripsService.getTrips().subscribe(trips => {console.log(trips); this.tripList = trips });
-
+    this.tripsService.getTrips().subscribe(trips => {
+      console.log(trips);
+      this.tripList = trips
+      for (let trip of this.tripList) {
+        trip.startDate = new Date(trip.startDate["seconds"] * 1000).toLocaleDateString();
+        trip.endDate = new Date(trip.endDate["seconds"] * 1000).toLocaleDateString();
+      }
+    });
   }
 
   isCheapest(trip: Trip): boolean {
@@ -53,7 +59,7 @@ export class TripListComponent implements OnInit {
     let tripListIndex = this.tripList.indexOf(trip);
     let cartIndex = this.cart.elements.indexOf(this.getCartElementById(trip.id));
     if (tripListIndex !== -1) {
-      this.tripsService.deleteTrip(trip.id).then(() => {this.cart.elements.splice(cartIndex, 1); this.fetchTripsList()});
+      this.tripsService.deleteTrip(trip.id).then(() => { this.cart.elements.splice(cartIndex, 1); this.fetchTripsList() });
     }
   }
 

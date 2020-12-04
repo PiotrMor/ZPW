@@ -4,9 +4,14 @@
             <img src={{trip.imageUrl}} [routerLink]="['/trips', trip.id]">
         </div>
         <div class="flex-trip-content">
-            <button mat-icon-button color="warn" aria-label="Usuń wycieczkę" (click)=removeTrip() class="action-button">
-                <mat-icon>delete</mat-icon>
-            </button>
+            <span *ngIf="isAdmin">
+                <button mat-icon-button color="warn" aria-label="Usuń wycieczkę" (click)=removeTrip() class="action-button">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button color="accent" aria-label="Modyfikuj wycieczkę" (click)=updateTrip() class="action-button">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </span>
             <mat-card-header class="card-content-header">
                 <mat-card-title>{{trip.name | uppercase}}</mat-card-title>
                 <mat-card-subtitle>{{trip.destination | uppercase}}</mat-card-subtitle>

@@ -92,6 +92,7 @@ flex-direction: row;
 
 .filter-sidenav {
     display: flex;
+    height: 1000px;
     align-items: center;
     justify-content: center;
     width: 200px;
@@ -99,6 +100,7 @@ flex-direction: row;
 
 
 .main-content {
+    min-height: 1000px;
     width: 65%;
     margin: auto;
     align-items: center;
