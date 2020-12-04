@@ -11,4 +11,5 @@ export interface Trip {
     rate: number;
     totalPlaces: number;
     availablePlaces: number;
+    additionalImages: string[];
 }

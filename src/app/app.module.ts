@@ -39,6 +39,8 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { TripDetailsComponent } from './components/trip-details/trip-details.component';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     TripFilterComponent,
     RateFilterPipe,
     DestinationFilterPipe,
-    PriceFilterPipe
+    PriceFilterPipe,
+    TripDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +82,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    IvyCarouselModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' }

@@ -30,7 +30,7 @@ export class TripsService {
   }
 
   getTrip(tripId: string): Observable<Trip> {
-    return this.db.doc<Trip>(tripId).snapshotChanges().pipe(map(changes => {
+    return this.db.doc<Trip>(this.path + tripId).snapshotChanges().pipe(map(changes => {
       const data: Trip = changes.payload.data();
       const id = changes.payload.id;
       return {id, ...data};

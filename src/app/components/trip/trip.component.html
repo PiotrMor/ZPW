@@ -1,7 +1,7 @@
 <mat-card class="mat-elevation-z4" [ngClass]="{'border-red': isMostExpensive, 'border-green': isCheapest}">
     <div class="flex-row">
         <div class="flex-image">
-            <img src={{trip.imageUrl}}>
+            <img src={{trip.imageUrl}} [routerLink]="['/trips', trip.id]">
         </div>
         <div class="flex-trip-content">
             <button mat-icon-button color="warn" aria-label="Usuń wycieczkę" (click)=removeTrip() class="action-button">

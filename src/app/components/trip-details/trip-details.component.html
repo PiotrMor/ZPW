@@ -1,0 +1,16 @@
+<div fxLayout="column" fxLayoutAlign="start center">
+    <h1>{{trip?.name}}</h1>
+    <p>Kraj docelowy: {{ trip?.destination }}</p>
+    <p>Cena: {{ trip?.price }}</p>
+    <p>Ilość miejsc: {{ trip.totalPlaces }}</p>
+    <p>Ocena uczestników</p>
+    <app-star-rating [(value)]="trip.rate"></app-star-rating>
+    <p>Opis</p>
+    <p>{{ trip?.description }}</p>
+
+        <carousel [images]="images" [cellWidth]="'100%'" [height]="400" [width]="800"></carousel>
+
+
+
+
+</div>

@@ -53,8 +53,7 @@ export class TripListComponent implements OnInit {
     let tripListIndex = this.tripList.indexOf(trip);
     let cartIndex = this.cart.elements.indexOf(this.getCartElementById(trip.id));
     if (tripListIndex !== -1) {
-      this.tripsService.deleteTrip(trip.id).then(() => this.fetchTripsList());
-      
+      this.tripsService.deleteTrip(trip.id).then(() => {this.cart.elements.splice(cartIndex, 1); this.fetchTripsList()});
     }
   }
 
