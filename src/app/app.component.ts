@@ -37,4 +37,9 @@ export class AppComponent implements OnInit {
       this.isAdmin = result;
     });
   }
+
+  update() {
+    this.isLoggedIn();
+    this.hasAdminRole();
+  }
 }

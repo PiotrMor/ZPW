@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
     "Klient": "user",
     "Administrator": "admin"
   }
-  selectedRole: string;
+  selectedRole: string = "Klient";
 
   constructor(private authService: AuthService,
     private userService: UserService,
@@ -41,12 +41,14 @@ export class RegisterComponent implements OnInit {
     let credentials: Credentials;
     credentials = this.registerForm.value;
     this.authService.register(credentials).then(result => {
-        this.userService.addUser({
-          id: result.user.uid,
-          email: result.user.email,
-          role: this.rolesMap[this.selectedRole]
-        }).then(() => "New user created");
-      this.router.navigate(["trips"]);
+      console.log("result " + result);
+      this.userService.addUser({
+        id: result.user.uid,
+        email: result.user.email,
+        role: this.rolesMap[this.selectedRole]
+      }).then(() => {
+        this.router.navigate(["trips"]);
+      });
     }).catch(err => console.log(err));
   }
 

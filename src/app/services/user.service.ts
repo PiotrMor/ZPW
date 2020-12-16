@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { User } from '../model/User';
 
 @Injectable({
@@ -17,6 +17,7 @@ export class UserService {
     return this.db.collection(this.path).doc(newUser.id).set(newUser);
   }
 
+  //TODO: change it 
   getUser(userId: string): Observable<User> {
     return this.db.doc<User>(this.path + userId).snapshotChanges().pipe(map(changes => {
       const data: User = changes.payload.data();

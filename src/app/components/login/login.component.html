@@ -1,6 +1,7 @@
 <div class="container">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div fxLayout="column">
+        <div fxLayout="column" class="form-container">
+            <h2>Logowanie</h2>
             <mat-form-field appearance="standard">
                 <mat-label>Adres email</mat-label>
                 <input matInput formControlName="email">
