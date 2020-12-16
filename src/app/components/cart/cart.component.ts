@@ -15,7 +15,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cart = this.cartService.getCart(1); //TODO: Insert correct id 
+    this.cartService.getCart("1").subscribe(cart => this.cart = cart);
   }
 
   getTotalPrice(): number {

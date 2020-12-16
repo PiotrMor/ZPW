@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Credentials } from 'src/app/model/Credentials';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -31,7 +32,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -47,10 +49,12 @@ export class RegisterComponent implements OnInit {
         email: result.user.email,
         role: this.rolesMap[this.selectedRole]
       }).then(() => {
-        this.router.navigate(["trips"]);
-      });
+        if (this.rolesMap[this.selectedRole] === "user") {
+          this.cartService.createCart(result.user.uid).then(() => this.router.navigate(["trips"]));
+        } else {
+          this.router.navigate(["trips"]);
+        }
+      }).catch(err => console.log(err));
     }).catch(err => console.log(err));
   }
-
-
 }

@@ -76,7 +76,7 @@ export class TripListComponent implements OnInit {
   initializeCart() {
     this.cart = {
       elements: [],
-      id: 1
+      id: "1"
     }
   }
 

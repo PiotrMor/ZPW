@@ -17,12 +17,7 @@ export class UserService {
     return this.db.collection(this.path).doc(newUser.id).set(newUser);
   }
 
-  //TODO: change it 
   getUser(userId: string): Observable<User> {
-    return this.db.doc<User>(this.path + userId).snapshotChanges().pipe(map(changes => {
-      const data: User = changes.payload.data();
-      const id = changes.payload.id;
-      return {id, ...data};
-    }))
+    return this.db.collection(this.path).doc<User>(userId).get().pipe(map(d => d.data()));
   }
 }
