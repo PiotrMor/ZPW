@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
@@ -14,12 +15,16 @@ export class AppComponent implements OnInit {
   isLogged: boolean = false;
   isAdmin: boolean = false;
 
-  constructor(private authService: AuthService, private authGuard: AuthGuard, private adminGuard: AdminGuard) {
+  constructor(private authService: AuthService, private authGuard: AuthGuard, private adminGuard: AdminGuard, private router: Router) {
   }
 
   ngOnInit(): void {
     this.isLoggedIn();
     this.hasAdminRole();
+    this.router.events.subscribe(event => {
+      this.isLoggedIn();
+      this.hasAdminRole();
+    })
   }
 
   logout() {
