@@ -89,6 +89,8 @@ export class NewTripComponent implements OnInit {
     newTrip.rate = 0;
     newTrip.availablePlaces = newTrip.totalPlaces;
     if (!this.updateMode) {
+      newTrip.startDate = new Date(newTrip.startDate).toISOString();
+      newTrip.endDate = new Date(newTrip.endDate).toISOString();
       this.tripsService.addTrip(newTrip).then(ref => {
         ref.set({ id: ref.id }, { merge: true }).then(() => {
           this.router.navigate(["trips"]);

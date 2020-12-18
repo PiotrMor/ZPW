@@ -46,11 +46,11 @@ export class TripFilterComponent implements OnInit {
 
   initializeFilterValues() {
     this.trips.forEach(trip => {
-      if (trip.price > this.highestPrice || this.highestPrice === -1) {
-        this.highestPrice = trip.price;
+      if (Number(trip.price) > this.highestPrice || this.highestPrice === -1) {
+        this.highestPrice = Number(trip.price);
       }
-      if (trip.price < this.lowestPrice || this.lowestPrice === -1) {
-        this.lowestPrice = trip.price;
+      if (Number(trip.price) < this.lowestPrice || this.lowestPrice === -1) {
+        this.lowestPrice = Number(trip.price);
       }
       if (!this.destinations.includes(trip.destination)) {
         this.destinations.push(trip.destination);
@@ -77,9 +77,8 @@ export class TripFilterComponent implements OnInit {
 
   private emitPriceFilter() {
     let value: number[] = [];
-    value.push(this.currentHighestPrice as number);
     value.push(this.currentLowestPrice as number);
-    console.log(value); 
+    value.push(this.currentHighestPrice as number);
     this.priceFilterChange.emit(value);
   }
 }

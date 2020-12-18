@@ -5,21 +5,18 @@
 
             <div>
                 <mat-form-field class="short-input">
-                    <mat-label>Maksymalna</mat-label>
-                    <input matInput [(ngModel)]="currentHighestPrice" (blur)=filterByPrice()>
+                    <mat-label>Minimalna</mat-label>
+                    <input matInput [(ngModel)]="currentLowestPrice" (blur)=filterByPrice()>
         
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field class="short-input">
-                    <mat-label>Minimalna</mat-label>
-                    <input matInput [(ngModel)]="currentLowestPrice" (blur)=filterByPrice()>
+                    <mat-label>Maksymalna</mat-label>
+                    <input matInput [(ngModel)]="currentHighestPrice" (blur)=filterByPrice()>
                 </mat-form-field>
             </div>
-
-
         </div>
-        
     </div>
 
     <div>

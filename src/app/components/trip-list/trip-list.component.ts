@@ -35,12 +35,7 @@ export class TripListComponent implements OnInit {
 
   fetchTripsList(): void {
     this.tripsService.getTrips().subscribe(trips => {
-      console.log(trips);
-      this.tripList = trips
-      for (let trip of this.tripList) {
-        //trip.startDate = new Date(trip.startDate["seconds"] * 1000).toLocaleDateString();
-        //trip.endDate = new Date(trip.endDate["seconds"] * 1000).toLocaleDateString();
-      }
+      this.tripList = trips;
     });
   }
 
@@ -52,18 +47,18 @@ export class TripListComponent implements OnInit {
     })
   }
 
-  isMostExpensive(trip: Trip): boolean {
+  isCheapest(trip: Trip): boolean {
     for (var element of this.tripList) {
-      if (trip.price > element.price) {
+      if (Number(trip.price) > element.price) {
         return false;
       }
     }
     return true;
   }
 
-  isCheapest(trip: Trip): boolean {
+  isMostExpensive(trip: Trip): boolean {
     for (var element of this.tripList) {
-      if (trip.price < element.price) {
+      if (Number(trip.price) < element.price) {
         return false;
       }
     }

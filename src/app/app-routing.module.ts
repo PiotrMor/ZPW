@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'updateTrip/:id', component: NewTripComponent,  canActivate: [AuthGuard, AdminGuard] },
   { path: '', redirectTo: '/trips', pathMatch:'full', canActivate: [AuthGuard] },
   { path: 'trips/:id', component: TripDetailsComponent,  canActivate: [AuthGuard]},
-  { path: 'cart', component: CartComponent},
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent}
 ];
