@@ -11,15 +11,20 @@
                         cdkAutosizeMaxRows="5" formControlName="opinion"></textarea>
                 </mat-form-field>
                 <app-star-rating [(value)]="newRate"></app-star-rating>
-                <button mat-raised-button color="primary" type="submit" [disabled]="!reviewForm.valid || newRate == 0">Dodaj
-                    ocenę</button>
+                <div>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!reviewForm.valid || newRate == 0">Dodaj
+                        ocenę</button>
+
+                </div>
         </form>
 
     </div>
     <mat-divider></mat-divider>
-    <div *ngFor="let review of tripReview?.reviews">
+    <mat-card *ngFor="let review of tripReview?.reviews" class="comment">
         {{ review.username }}
-        {{ review.rate }}
-        {{ review.opinion }}
-    </div>
+        <app-star-rating [editable]="false" [(value)]="review.rate" [size]=16></app-star-rating>
+        <p>
+            {{ review.opinion }}
+        </p>
+    </mat-card>
 </div>

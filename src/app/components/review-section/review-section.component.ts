@@ -25,6 +25,10 @@ export class ReviewSectionComponent implements OnInit {
   );
 
   ngOnInit(): void {
+    this.fetchData();
+  }
+
+  fetchData() {
     this.route.paramMap.subscribe(params => {
       this.reviewService.getReview(params.get('id')).subscribe(review => {
         this.tripReview = review;
@@ -41,7 +45,6 @@ export class ReviewSectionComponent implements OnInit {
           })
         })
       });
-
     });
   }
 
@@ -52,7 +55,7 @@ export class ReviewSectionComponent implements OnInit {
       userReview.userId = user.uid;
       userReview.username = user.email;
       this.tripReview.reviews.push(userReview);
-      this.reviewService.updateTripReview(this.tripReview);
+      this.reviewService.updateTripReview(this.tripReview).then(() => this.fetchData());
     })
   }
 

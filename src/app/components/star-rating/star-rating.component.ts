@@ -10,6 +10,9 @@ export class StarRatingComponent implements OnInit {
   editable = true;
 
   @Input()
+  size = 36;
+
+  @Input()
   value: number;
 
   @Output()
@@ -36,5 +39,9 @@ export class StarRatingComponent implements OnInit {
       }
       this.valueChange.emit(this.value);
     }
+  }
+
+  getSize() {
+    return this.size + "px";
   }
 }
