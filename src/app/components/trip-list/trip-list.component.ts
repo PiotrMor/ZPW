@@ -38,8 +38,8 @@ export class TripListComponent implements OnInit {
       console.log(trips);
       this.tripList = trips
       for (let trip of this.tripList) {
-        trip.startDate = new Date(trip.startDate["seconds"] * 1000).toLocaleDateString();
-        trip.endDate = new Date(trip.endDate["seconds"] * 1000).toLocaleDateString();
+        //trip.startDate = new Date(trip.startDate["seconds"] * 1000).toLocaleDateString();
+        //trip.endDate = new Date(trip.endDate["seconds"] * 1000).toLocaleDateString();
       }
     });
   }
@@ -71,11 +71,7 @@ export class TripListComponent implements OnInit {
   }
 
   removeTrip(trip: Trip) {
-    let tripListIndex = this.tripList.indexOf(trip);
-    let cartIndex = this.cart.elements.indexOf(this.getCartElementById(trip.id));
-    if (tripListIndex !== -1) {
-      this.tripsService.deleteTrip(trip.id).then(() => { this.cart.elements.splice(cartIndex, 1); this.fetchTripsList() });
-    }
+    this.tripsService.deleteTrip(trip.id).then(() => { /* this.fetchTripsList() */ });
   }
 
   handleReservationEvent(event: CartElement) {

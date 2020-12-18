@@ -11,7 +11,7 @@ import { TripsService } from 'src/app/services/trips.service';
   styleUrls: ['./new-trip.component.scss']
 })
 export class NewTripComponent implements OnInit {
-  trip: Trip
+  tripCopy: Trip
   updateMode = false;
   tripId: string;
   availablePlaces: string;
@@ -39,14 +39,19 @@ export class NewTripComponent implements OnInit {
         this.tripId = params.get("id");
         this.availablePlaces = params.get("availablePlaces");
         this.tripsService.getTrip(params.get("id")).subscribe(result => {
+          this.tripCopy = { ...result };
+          console.log(result);
           delete result.id;
           delete result.availablePlaces;
-          result.startDate = new Date(result.startDate["seconds"] * 1000).toLocaleDateString();
-          result.endDate = new Date(result.endDate["seconds"] * 1000).toLocaleDateString();
-          let formImageElements = 1;
-          while (result.additionalImages.length > formImageElements) {
+          delete result.rate;
+          if (result.startDate["seconds"] != null) {
+            result.startDate = new Date(result.startDate["seconds"] * 1000).toISOString();
+          }
+          if (result.endDate["seconds"] != null) {
+            result.endDate = new Date(result.endDate["seconds"] * 1000).toISOString();
+          }
+          while (result.additionalImages.length > this.getAdditionalImagesForm().length) {
             this.addImageFormField();
-            formImageElements++;
           }
           this.tripForm.setValue(result);
         });
@@ -71,7 +76,7 @@ export class NewTripComponent implements OnInit {
 
   removeImageFormField() {
     let imagesForm = this.getAdditionalImagesForm();
-    imagesForm.removeAt(imagesForm.length - 1);  
+    imagesForm.removeAt(imagesForm.length - 1);
   }
 
   getAdditionalImagesForm(): FormArray {
@@ -81,7 +86,7 @@ export class NewTripComponent implements OnInit {
   onSubmit() {
     let newTrip: Trip;
     newTrip = this.tripForm.value;
-    
+
     newTrip.availablePlaces = newTrip.totalPlaces;
     if (!this.updateMode) {
       this.tripsService.addTrip(newTrip).then(ref => {
@@ -91,12 +96,14 @@ export class NewTripComponent implements OnInit {
         })
       });
     } else {
-      newTrip.id = this.tripId;
+      console.log(newTrip);
+      newTrip.id = this.tripCopy.id;
+      newTrip.rate = this.tripCopy.rate;
+      newTrip.availablePlaces = this.tripCopy.availablePlaces;
       this.tripsService.updateTrip(newTrip).then(() => {
         this.router.navigate(["trips"]);
-      })
+      });
     }
-
   }
 
 }

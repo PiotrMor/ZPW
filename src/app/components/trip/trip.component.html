@@ -22,7 +22,7 @@
                 </div>
                 <div class="trip-details">
                     <p><b>Cena:</b> {{trip.price | currency}}</p>
-                    <p><b>Termin wyjazdu:</b> {{trip.startDate}} - {{trip.endDate}}</p>
+                    <p><b>Termin wyjazdu:</b> {{trip.startDate | date:'dd.MM.yy'}} - {{trip.endDate  | date:'dd.MM.yy'}}</p>
                     <p *ngIf="!isSoldOut(); else showSoldOutMessage"
                         [style.color]="isAlmostSoldOut() ? 'orange' : 'green'">Ilość dostępnych miejsc:
                         {{trip.availablePlaces}}</p>
