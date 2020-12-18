@@ -19,7 +19,6 @@ export class TripDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.tripsService.getTrip(params.get('id')).subscribe(trip => {
-        console.log(trip);
         this.trip = trip;
         this.rate = trip.rate;
         this.images = [];

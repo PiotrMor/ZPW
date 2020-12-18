@@ -43,7 +43,6 @@ export class RegisterComponent implements OnInit {
     let credentials: Credentials;
     credentials = this.registerForm.value;
     this.authService.register(credentials).then(result => {
-      console.log("result " + result);
       this.userService.addUser({
         id: result.user.uid,
         email: result.user.email,

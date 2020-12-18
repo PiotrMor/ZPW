@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     let credentials: Credentials;
     credentials = this.loginForm.value;
-    console.log(credentials);
     this.authService.login(credentials).then(success => this.router.navigate(["trips"]).catch(err => console.log("Błędne dane logowania!")));
   }
 

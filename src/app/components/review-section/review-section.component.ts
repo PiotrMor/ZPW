@@ -26,9 +26,7 @@ export class ReviewSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      console.log(params.get('id'));
       this.reviewService.getReview(params.get('id')).subscribe(review => {
-        console.log(review);
         this.tripReview = review;
         this.authService.getUser().then(auth => {
           let hasUserReviewed = false;
@@ -37,13 +35,9 @@ export class ReviewSectionComponent implements OnInit {
               hasUserReviewed = true;
             }
           }
-          console.log("Has user reviewed: " + hasUserReviewed);
           this.userService.getUser(auth.uid).subscribe(user => {
             let hasUserReservedTrip = user.reservedTrips.includes(params.get('id'));
-            console.log(user.reservedTrips)
-            console.log("hasUserReservedTrip: " + hasUserReservedTrip);
             this.canAddReview = !hasUserReviewed && hasUserReservedTrip
-            console.log("Can add review: " + this.canAddReview);
           })
         })
       });
