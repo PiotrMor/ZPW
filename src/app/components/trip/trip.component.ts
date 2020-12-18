@@ -86,7 +86,6 @@ export class TripComponent implements OnInit {
         }
       }
     }
-    console.log(this.cart);
     return cartContainsTrip;
   }
 }

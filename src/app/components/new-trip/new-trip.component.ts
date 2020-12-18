@@ -40,7 +40,6 @@ export class NewTripComponent implements OnInit {
         this.availablePlaces = params.get("availablePlaces");
         this.tripsService.getTrip(params.get("id")).subscribe(result => {
           this.tripCopy = { ...result };
-          console.log(result);
           delete result.id;
           delete result.availablePlaces;
           delete result.rate;
@@ -98,7 +97,6 @@ export class NewTripComponent implements OnInit {
         })
       });
     } else {
-      console.log(newTrip);
       newTrip.id = this.tripCopy.id;
       if (this.tripCopy.rate != null) {
         newTrip.rate = this.tripCopy.rate;
