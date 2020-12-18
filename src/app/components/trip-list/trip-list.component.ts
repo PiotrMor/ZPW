@@ -84,6 +84,7 @@ export class TripListComponent implements OnInit {
         element.amount += event.amount;
         if (element.amount == 0) {
           this.tripNoLongerReservedByUser(event.tripId);
+          this.cart.elements.splice(this.cart.elements.indexOf(element), 1);
         }
         this.updateCart();
         return;

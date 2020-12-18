@@ -44,6 +44,7 @@ import {IvyCarouselModule} from 'angular-responsive-carousel';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { ReviewSectionComponent } from './components/review-section/review-section.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import {MatRadioModule} from '@angular/material/radio';
     PriceFilterPipe,
     TripDetailsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ReviewSectionComponent
   ],
   imports: [
     BrowserModule,

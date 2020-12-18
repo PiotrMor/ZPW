@@ -27,7 +27,6 @@ export class AdminGuard implements CanActivate {
       }
 
       return this.userService.getUser(firebaseUser.uid).pipe(map(user => {
-        console.log(user);
         return user.role === 'admin';
       }))
     }));

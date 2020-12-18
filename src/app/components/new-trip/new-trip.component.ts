@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Trip } from 'src/app/model/Trip';
+import { TripReviewService } from 'src/app/services/trip-review.service';
 import { TripsService } from 'src/app/services/trips.service';
 
 @Component({
@@ -12,6 +13,8 @@ import { TripsService } from 'src/app/services/trips.service';
 export class NewTripComponent implements OnInit {
   trip: Trip
   updateMode = false;
+  tripId: string;
+  availablePlaces: string;
   tripForm = new FormGroup(
     {
       name: new FormControl('', Validators.required),
@@ -27,15 +30,24 @@ export class NewTripComponent implements OnInit {
   );
 
 
-  constructor(private tripsService: TripsService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private tripsService: TripsService, private router: Router, private route: ActivatedRoute, private reviewService: TripReviewService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       if (params.has("id")) {
         this.updateMode = true;
-        console.log("Param has ID");
+        this.tripId = params.get("id");
+        this.availablePlaces = params.get("availablePlaces");
         this.tripsService.getTrip(params.get("id")).subscribe(result => {
-          this.trip = result;
+          delete result.id;
+          delete result.availablePlaces;
+          result.startDate = new Date(result.startDate["seconds"] * 1000).toLocaleDateString();
+          result.endDate = new Date(result.endDate["seconds"] * 1000).toLocaleDateString();
+          let formImageElements = 1;
+          while (result.additionalImages.length > formImageElements) {
+            this.addImageFormField();
+            formImageElements++;
+          }
           this.tripForm.setValue(result);
         });
       }
@@ -51,6 +63,7 @@ export class NewTripComponent implements OnInit {
       imagesForm.removeAt(event.target.value - 1);
     }
   }
+
   addImageFormField() {
     let imagesForm = this.getAdditionalImagesForm();
     imagesForm.push(new FormControl('', Validators.required));
@@ -68,16 +81,17 @@ export class NewTripComponent implements OnInit {
   onSubmit() {
     let newTrip: Trip;
     newTrip = this.tripForm.value;
-    console.log(newTrip);
     
     newTrip.availablePlaces = newTrip.totalPlaces;
     if (!this.updateMode) {
       this.tripsService.addTrip(newTrip).then(ref => {
         ref.set({ id: ref.id }, { merge: true }).then(() => {
           this.router.navigate(["trips"]);
+          this.reviewService.createReview(ref.id).then();
         })
       });
     } else {
+      newTrip.id = this.tripId;
       this.tripsService.updateTrip(newTrip).then(() => {
         this.router.navigate(["trips"]);
       })

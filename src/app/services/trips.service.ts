@@ -38,35 +38,6 @@ export class TripsService {
       const data: Trip = changes.payload.data();
       const id = changes.payload.id;
       return {id, ...data};
-    }))
+    }));
   }
-/*   getTrip(tripId: string) {
-    return this.db.doc(tripId).ref.get().then(document => {
-      if (document.exists) {
-        console.log("Document data:", (Trip) document.data());
-      } else {
-        console.log("No such document!");
-      }
-    }).catch(function(error) {
-      console.log("Error getting document:", error);
-    });
-  } */
-
-
-
-
-
-/*   getTrips(): Observable<Trip[]> {
-    return this.http.get<Trip[]>(this.trips_url);
-  }
-
-
-
-  addTrip(newTrip: Trip): boolean {
-    return false;
-  }
-
-  deleteTrip(tripId: number): boolean {
-    return false;
-  } */
 }

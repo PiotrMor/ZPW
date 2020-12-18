@@ -1,0 +1,25 @@
+<mat-divider></mat-divider>
+<div fxLayout="column" fxLayoutAlign="start center">
+
+    <h4>Opinie użytkowników</h4>
+
+    <div *ngIf="canAddReview">
+        <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+                <mat-form-field class="big-input">
+                    <mat-label>Opinia</mat-label>
+                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3"
+                        cdkAutosizeMaxRows="5" formControlName="opinion"></textarea>
+                </mat-form-field>
+                <app-star-rating [(value)]="newRate"></app-star-rating>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!reviewForm.valid || newRate == 0">Dodaj
+                    ocenę</button>
+        </form>
+
+    </div>
+    <mat-divider></mat-divider>
+    <div *ngFor="let review of tripReview?.reviews">
+        {{ review.username }}
+        {{ review.rate }}
+        {{ review.opinion }}
+    </div>
+</div>
