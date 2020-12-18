@@ -1,6 +1,7 @@
 <div class="container">
     <form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
         <div fxLayout="column">
+            <h4>Informacje ogólne</h4>
             <mat-form-field appearance="standard" class="text-input">
                 <mat-label>Nazwa wycieczki</mat-label>
                 <input matInput formControlName="name">
@@ -27,6 +28,26 @@
                 <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3"
                     cdkAutosizeMaxRows="5" formControlName="description"></textarea>
             </mat-form-field>
+
+            <h4>Dodatkowe obrazy</h4>
+            <div *ngFor="let image of getAdditionalImagesForm().controls; let i = index">
+                <mat-form-field appearance="standard" class="image-form">
+                    <mat-label>URL obrazka {{i + 1}}</mat-label>
+                    <input matInput [formControl]="image">
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-mini-fab type="button" color="warn" (click)="removeImageFormField()"
+                    class="image-form-button" [disabled]="getAdditionalImagesForm().controls.length == 1">
+                    <mat-icon>remove</mat-icon>
+                </button>
+                <button mat-mini-fab type="button" color="primary" (click)="addImageFormField()"
+                    class="image-form-button">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+
+
         </div>
 
 
@@ -43,6 +64,7 @@
             <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
             <mat-datepicker #endPicker></mat-datepicker>
         </mat-form-field>
+
         <div fxLayout="column">
             <button mat-raised-button color="primary" type="submit" [disabled]="!tripForm.valid">Submit</button>
 

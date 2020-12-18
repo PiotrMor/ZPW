@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Trip } from 'src/app/model/Trip';
 import { TripsService } from 'src/app/services/trips.service';
@@ -11,6 +11,7 @@ import { TripsService } from 'src/app/services/trips.service';
 })
 export class NewTripComponent implements OnInit {
   trip: Trip
+  updateMode = false;
   tripForm = new FormGroup(
     {
       name: new FormControl('', Validators.required),
@@ -20,7 +21,8 @@ export class NewTripComponent implements OnInit {
       price: new FormControl('', Validators.required),
       imageUrl: new FormControl('', Validators.required),
       totalPlaces: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required)
+      description: new FormControl('', Validators.required),
+      additionalImages: new FormArray([new FormControl('', Validators.required)])
     }
   );
 
@@ -30,6 +32,8 @@ export class NewTripComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       if (params.has("id")) {
+        this.updateMode = true;
+        console.log("Param has ID");
         this.tripsService.getTrip(params.get("id")).subscribe(result => {
           this.trip = result;
           this.tripForm.setValue(result);
@@ -38,11 +42,36 @@ export class NewTripComponent implements OnInit {
     });
   }
 
+  onImagesFormChange(event) {
+    const numberOfImages = event.target.value | 0;
+    let imagesForm = this.getAdditionalImagesForm();
+    if (imagesForm.length < numberOfImages) {
+      imagesForm.push(new FormControl('', Validators.required));
+    } else {
+      imagesForm.removeAt(event.target.value - 1);
+    }
+  }
+  addImageFormField() {
+    let imagesForm = this.getAdditionalImagesForm();
+    imagesForm.push(new FormControl('', Validators.required));
+  }
+
+  removeImageFormField() {
+    let imagesForm = this.getAdditionalImagesForm();
+    imagesForm.removeAt(imagesForm.length - 1);  
+  }
+
+  getAdditionalImagesForm(): FormArray {
+    return this.tripForm.controls.additionalImages as FormArray;
+  }
+
   onSubmit() {
     let newTrip: Trip;
     newTrip = this.tripForm.value;
+    console.log(newTrip);
+    
     newTrip.availablePlaces = newTrip.totalPlaces;
-    if (newTrip.id === null) {
+    if (!this.updateMode) {
       this.tripsService.addTrip(newTrip).then(ref => {
         ref.set({ id: ref.id }, { merge: true }).then(() => {
           this.router.navigate(["trips"]);
