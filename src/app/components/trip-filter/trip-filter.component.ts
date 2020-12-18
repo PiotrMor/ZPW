@@ -61,15 +61,7 @@ export class TripFilterComponent implements OnInit {
   }
 
   filterByPrice() {
-    if (this.currentLowestPrice < this.lowestPrice) {
-      this.currentLowestPrice = this.lowestPrice;
-    } else if (this.currentLowestPrice > this.currentHighestPrice) {
-      this.currentLowestPrice = this.currentHighestPrice;
-    } else if (this.currentHighestPrice > this.highestPrice) {
-      this.currentHighestPrice = this.highestPrice
-    } else if (this.currentHighestPrice < this.currentLowestPrice) {
-      this.currentHighestPrice = this.currentLowestPrice;
-    }
+
 
     this.emitPriceFilter();
   }
@@ -85,9 +77,9 @@ export class TripFilterComponent implements OnInit {
 
   private emitPriceFilter() {
     let value: number[] = [];
-    value.push(this.currentLowestPrice);
-    value.push(this.currentHighestPrice);
-
+    value.push(this.currentLowestPrice as number);
+    value.push(this.currentHighestPrice as number);
+    console.log(value); 
     this.priceFilterChange.emit(value);
   }
 }

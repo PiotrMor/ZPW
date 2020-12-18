@@ -10,10 +10,10 @@ export class PriceFilterPipe implements PipeTransform {
     if (args.length != 2) {
       return trips;
     } else {
-      let lowestPrice = args[0];
-      let highestPrice = args[1];
-      
-      return trips.filter(trip => trip.price >= lowestPrice && trip.price <= highestPrice);
+      let lowestPrice: number = Number(args[0]);
+      let highestPrice: number = Number(args[1]);
+      return trips.filter(trip => {
+        return trip.price >= lowestPrice && trip.price <= highestPrice});
     }
     
   }

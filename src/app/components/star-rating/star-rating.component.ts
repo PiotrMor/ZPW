@@ -7,6 +7,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class StarRatingComponent implements OnInit {
   @Input()
+  editable = true;
+
+  @Input()
   value: number;
 
   @Output()
@@ -25,11 +28,13 @@ export class StarRatingComponent implements OnInit {
   }
 
   changeValue(value: number) {
-    if (this.value === value + 1) {
-      this.value = 0;
-    } else {
-      this.value = value + 1;
+    if (this.editable) {
+      if (this.value === value + 1) {
+        this.value = 0;
+      } else {
+        this.value = value + 1;
+      }
+      this.valueChange.emit(this.value);
     }
-    this.valueChange.emit(this.value);
   }
 }
