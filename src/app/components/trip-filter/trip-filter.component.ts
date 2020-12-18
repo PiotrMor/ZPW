@@ -77,8 +77,8 @@ export class TripFilterComponent implements OnInit {
 
   private emitPriceFilter() {
     let value: number[] = [];
-    value.push(this.currentLowestPrice as number);
     value.push(this.currentHighestPrice as number);
+    value.push(this.currentLowestPrice as number);
     console.log(value); 
     this.priceFilterChange.emit(value);
   }

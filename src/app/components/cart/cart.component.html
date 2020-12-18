@@ -1,1 +1,16 @@
-<h1>Zawartość koszyka</h1>
+<div class="container">
+
+<div fxLayout="column">
+
+    <h1>Zawartość koszyka</h1>
+
+    <mat-card *ngFor="let cartElement of cart?.elements" class="cart-element">
+        <p>Nazwa produktu: {{getTripById(cartElement.tripId).name}}</p>
+        <p>Ilość: {{cartElement.amount}}</p>
+        <p>Cena jednej wycieczki: {{getTripById(cartElement.tripId).price | currency:"PLN":"symbol"}}</p>
+
+    </mat-card>
+
+    <h4>Łączna wartośc koszyka: {{totalPrice | currency:"PLN":"symbol"}}</h4>
+</div>
+</div>

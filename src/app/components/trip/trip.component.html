@@ -5,10 +5,12 @@
         </div>
         <div class="flex-trip-content">
             <span *ngIf="isAdmin">
-                <button mat-icon-button color="warn" aria-label="Usuń wycieczkę" (click)=removeTrip() class="action-button">
+                <button mat-icon-button color="warn" aria-label="Usuń wycieczkę" (click)=removeTrip()
+                    class="action-button">
                     <mat-icon>delete</mat-icon>
                 </button>
-                <button mat-icon-button color="accent" aria-label="Modyfikuj wycieczkę" (click)=updateTrip() class="action-button">
+                <button mat-icon-button color="accent" aria-label="Modyfikuj wycieczkę" (click)=updateTrip()
+                    class="action-button">
                     <mat-icon>edit</mat-icon>
                 </button>
             </span>
@@ -21,8 +23,9 @@
                     {{trip.description}}
                 </div>
                 <div class="trip-details">
-                    <p><b>Cena:</b> {{trip.price | currency}}</p>
-                    <p><b>Termin wyjazdu:</b> {{trip.startDate | date:'dd.MM.yy'}} - {{trip.endDate  | date:'dd.MM.yy'}}</p>
+                    <p><b>Cena:</b> {{trip.price | currency:"PLN":"symbol"}}</p>
+                    <p><b>Termin wyjazdu:</b> {{trip.startDate | date:'dd.MM.yy'}} - {{trip.endDate  | date:'dd.MM.yy'}}
+                    </p>
                     <p *ngIf="!isSoldOut(); else showSoldOutMessage"
                         [style.color]="isAlmostSoldOut() ? 'orange' : 'green'">Ilość dostępnych miejsc:
                         {{trip.availablePlaces}}</p>
@@ -30,16 +33,20 @@
                         <p class="trip-soldout-message">Brak wolnych miejsc!</p>
                     </ng-template>
                 </div>
-                
-            </mat-card-content>
 
-            <mat-card-actions>
-                <app-star-rating [(value)]="trip.rate" [editable]="false"></app-star-rating>
-                <button mat-raised-button class="action-button" color="primary" [disabled]="trip.availablePlaces == 0"
-                    (click)="addReservation()">+</button>
-                <button mat-raised-button class="action-button" color="primary"
-                    [disabled]="trip.availablePlaces == trip.totalPlaces" (click)="removeReservation()">-</button>
-            </mat-card-actions>
+            </mat-card-content>
+                <mat-card-actions>
+                    <app-star-rating [(value)]="trip.rate" [editable]="false"></app-star-rating>
+                    <span *ngIf="!isAdmin">
+
+                    <button mat-raised-button class="action-button" color="primary"
+                        [disabled]="trip.availablePlaces == 0" (click)="addReservation()">+</button>
+                    <button mat-raised-button class="action-button" color="primary" [disabled]="!canRemoveReservation()"
+                        (click)="removeReservation()">-</button>
+                    </span>
+
+                </mat-card-actions>
+
         </div>
     </div>
 </mat-card>

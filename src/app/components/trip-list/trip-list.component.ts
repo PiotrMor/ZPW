@@ -52,7 +52,7 @@ export class TripListComponent implements OnInit {
     })
   }
 
-  isCheapest(trip: Trip): boolean {
+  isMostExpensive(trip: Trip): boolean {
     for (var element of this.tripList) {
       if (trip.price > element.price) {
         return false;
@@ -61,7 +61,7 @@ export class TripListComponent implements OnInit {
     return true;
   }
 
-  isMostExpensive(trip: Trip): boolean {
+  isCheapest(trip: Trip): boolean {
     for (var element of this.tripList) {
       if (trip.price < element.price) {
         return false;

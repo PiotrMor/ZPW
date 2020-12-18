@@ -86,7 +86,7 @@ export class NewTripComponent implements OnInit {
   onSubmit() {
     let newTrip: Trip;
     newTrip = this.tripForm.value;
-
+    newTrip.rate = 0;
     newTrip.availablePlaces = newTrip.totalPlaces;
     if (!this.updateMode) {
       this.tripsService.addTrip(newTrip).then(ref => {
@@ -98,7 +98,9 @@ export class NewTripComponent implements OnInit {
     } else {
       console.log(newTrip);
       newTrip.id = this.tripCopy.id;
-      newTrip.rate = this.tripCopy.rate;
+      if (this.tripCopy.rate != null) {
+        newTrip.rate = this.tripCopy.rate;
+      }
       newTrip.availablePlaces = this.tripCopy.availablePlaces;
       this.tripsService.updateTrip(newTrip).then(() => {
         this.router.navigate(["trips"]);
