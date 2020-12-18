@@ -47,7 +47,8 @@ export class RegisterComponent implements OnInit {
       this.userService.addUser({
         id: result.user.uid,
         email: result.user.email,
-        role: this.rolesMap[this.selectedRole]
+        role: this.rolesMap[this.selectedRole],
+        reservedTrips: []
       }).then(() => {
         if (this.rolesMap[this.selectedRole] === "user") {
           this.cartService.createCart(result.user.uid).then(() => this.router.navigate(["trips"]));

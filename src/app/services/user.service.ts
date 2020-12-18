@@ -20,4 +20,8 @@ export class UserService {
   getUser(userId: string): Observable<User> {
     return this.db.collection(this.path).doc<User>(userId).get().pipe(map(d => d.data()));
   }
+
+  updateUser(user: User): Promise<any> {
+    return this.db.collection(this.path).doc(user.id).update(user);
+  }
 }

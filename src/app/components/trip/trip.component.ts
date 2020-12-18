@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AdminGuard } from 'src/app/guards/admin.guard';
 import { CartElement } from 'src/app/model/CartElement';
 import { Trip } from 'src/app/model/Trip';
+import { CartService } from 'src/app/services/cart.service';
+import { TripsService } from 'src/app/services/trips.service';
 
 @Component({
   selector: 'app-trip',
@@ -27,7 +29,7 @@ export class TripComponent implements OnInit {
   @Output()
   removeTripEvent = new EventEmitter<Trip>();
 
-  constructor(private router: Router, private adminGuard: AdminGuard) { }
+  constructor(private router: Router, private adminGuard: AdminGuard, private tripService: TripsService) { }
 
   ngOnInit(): void {
     this.adminGuard.canActivate(null, null).subscribe(result => {
@@ -45,12 +47,14 @@ export class TripComponent implements OnInit {
 
   addReservation() {
     this.trip.availablePlaces -= 1;
+    this.tripService.updateTrip(this.trip);
     this.reservationEvent.emit(this.getReservationEvent(1));
   }
 
   removeReservation() {
     if (this.trip.availablePlaces < this.trip.totalPlaces) {
       this.trip.availablePlaces += 1;
+      this.tripService.updateTrip(this.trip);
       this.reservationEvent.emit(this.getReservationEvent(-1));
     }
   }

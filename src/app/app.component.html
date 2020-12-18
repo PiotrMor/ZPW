@@ -313,6 +313,9 @@
     </span>
 
     <ng-template #loggedIn>
+      <span *ngIf="!isAdmin" mat-button class="nav-button" routerLink="/cart" class="material-icons">
+        shopping_cart
+      </span>
       <a class="float-right" mat-button class="nav-button" routerLink="/login" (click)="logout()">Wyloguj się</a>
     </ng-template>
 

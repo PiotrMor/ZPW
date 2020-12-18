@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Cart } from 'src/app/model/Cart';
 import { CartElement } from 'src/app/model/CartElement';
 import { Trip } from 'src/app/model/Trip';
+import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 import { TripsService } from 'src/app/services/trips.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-trip-list',
@@ -18,7 +21,11 @@ export class TripListComponent implements OnInit {
   destinationFilter: string[] = [];
   priceFilter: number[] = [];
 
-  constructor(private tripsService: TripsService) {
+  constructor(private tripsService: TripsService, 
+    private cartService: CartService,
+    private authService: AuthService,
+    private userService: UserService
+    ) {
   }
 
   ngOnInit(): void {
@@ -35,6 +42,14 @@ export class TripListComponent implements OnInit {
         trip.endDate = new Date(trip.endDate["seconds"] * 1000).toLocaleDateString();
       }
     });
+  }
+
+  initializeCart() {
+    this.authService.getUser().then(user => {
+      this.cartService.getCart(user.uid).subscribe(cart => {
+        this.cart = cart;
+      })
+    })
   }
 
   isCheapest(trip: Trip): boolean {
@@ -67,17 +82,38 @@ export class TripListComponent implements OnInit {
     for (let element of this.cart.elements) {
       if (element.tripId === event.tripId) {
         element.amount += event.amount;
+        if (element.amount == 0) {
+          this.tripNoLongerReservedByUser(event.tripId);
+        }
+        this.updateCart();
         return;
       }
     }
     this.cart.elements.push(event);
+    this.userService.getUser(this.cart.id).subscribe(user => {
+      user.reservedTrips.push(event.tripId);
+      this.userService.updateUser(user).then(() => console.log("New trip reserved by user"));
+    });
+    this.updateCart();
   }
 
-  initializeCart() {
-    this.cart = {
-      elements: [],
-      id: "1"
-    }
+  updateCart() {
+    this.cartService.updateCart(this.cart)
+    .then(() => console.log("Reservation added to cart"))
+    .catch(err => console.log(err));
+  }
+
+  tripNoLongerReservedByUser(tripId: string) {
+    this.userService.getUser(this.cart.id).subscribe(user => {
+      let index: number;
+      for (let i = 0; i < user.reservedTrips.length; i++) {
+        if (user.reservedTrips[i] == tripId) {
+          index = i;
+        }
+      }
+      user.reservedTrips.splice(index, 1);
+      this.userService.updateUser(user).then(() => console.log("Trip no longer reserved by user"));
+    });
   }
 
   getCartElementById(id: string): CartElement {

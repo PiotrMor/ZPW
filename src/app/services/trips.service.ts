@@ -25,7 +25,7 @@ export class TripsService {
     return this.tripsRef.add(newTrip);
   }
 
-  updateTrip(trip: Trip) {
+  updateTrip(trip: Trip): Promise<any> {
     return this.tripsRef.doc(trip.id).update(trip);
   }
 
