@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import data from '../../../FakeData.json'
 import { Trip } from '../model/Trip';
-import { RequestInfo } from 'angular-in-memory-web-api';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 
@@ -13,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class TripsService {
   private path = 'trips/';
   tripsRef: AngularFirestoreCollection<Trip> = null;
-  constructor(private http: HttpClient, private db: AngularFirestore ) { 
+  constructor(private db: AngularFirestore ) { 
     this.tripsRef = this.db.collection(this.path);
   }
 
